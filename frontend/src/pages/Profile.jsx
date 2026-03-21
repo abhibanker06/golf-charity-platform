@@ -31,7 +31,7 @@ export default function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const { data } = await axios.get('/api/auth/profile');
+      const { data } = await axios.get('/api/auth/profile', { withCredentials: true });
       setUserInfo(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (err) {
@@ -62,7 +62,7 @@ export default function Profile() {
     try {
       const { data } = await axios.put('/api/auth/profile', {
         selectedCharity: charityId
-      });
+      }, { withCredentials: true });
       // The backend returns populated fields sometimes, but we mainly need to update user context
       const updatedUser = { ...userInfo, selectedCharity: charityId };
       localStorage.setItem('userInfo', JSON.stringify(updatedUser));

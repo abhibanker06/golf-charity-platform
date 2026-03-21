@@ -28,7 +28,7 @@ export default function Subscription() {
 
   const fetchProfile = async () => {
     try {
-      const { data } = await axios.get('/api/auth/profile');
+      const { data } = await axios.get('/api/auth/profile', { withCredentials: true });
       setUserInfo(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (err) {
@@ -66,7 +66,7 @@ export default function Subscription() {
         }
       };
 
-      const { data } = await axios.put('/api/auth/profile', paymentData);
+      const { data } = await axios.put('/api/auth/profile', paymentData, { withCredentials: true });
       
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate('/dashboard');

@@ -26,7 +26,7 @@ export default function Dashboard() {
 
   const fetchProfile = async () => {
     try {
-      const { data } = await axios.get('/api/auth/profile');
+      const { data } = await axios.get('/api/auth/profile', { withCredentials: true });
       setUserInfo(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (err) {
@@ -36,7 +36,7 @@ export default function Dashboard() {
 
   const fetchScores = async () => {
     try {
-      const { data } = await axios.get('/api/scores');
+      const { data } = await axios.get('/api/scores', { withCredentials: true });
       setScores(data);
       localStorage.setItem('cachedScores', JSON.stringify(data));
     } catch (err) {
@@ -49,7 +49,7 @@ export default function Dashboard() {
   const handleAddScore = async (e) => {
     e.preventDefault();
     try {
-       await axios.post('/api/scores', { points: Number(newScore) });
+       await axios.post('/api/scores', { points: Number(newScore) }, { withCredentials: true });
       setNewScore('');
       fetchScores();
     } catch (err) {

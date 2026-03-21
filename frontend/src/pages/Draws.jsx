@@ -27,7 +27,7 @@ export default function Draws() {
 
   const fetchMyWins = async () => {
     try {
-      const { data } = await axios.get('/api/winners/my-wins');
+      const { data } = await axios.get('/api/winners/my-wins', { withCredentials: true });
       setMyWins(data);
       localStorage.setItem('cachedMyWins', JSON.stringify(data));
     } catch (err) {
@@ -41,7 +41,7 @@ export default function Draws() {
       await axios.post('/api/draws/run', { 
         monthYear: 'March 2026',
         mode: 'Published' 
-      });
+      }, { withCredentials: true });
       alert('Draw Completed! Results updated.');
       fetchDraws();
       fetchMyWins();
@@ -54,7 +54,7 @@ export default function Draws() {
 
   const fetchDraws = async () => {
     try {
-      const { data } = await axios.get('/api/draws');
+      const { data } = await axios.get('/api/draws', { withCredentials: true });
       // Set the latest Simulated/Active draw as the top card
       let active = data.find(d => d.monthYear === 'March 2026');
       if (!active && data.length > 0) active = data[0];
@@ -73,7 +73,7 @@ export default function Draws() {
 
   const fetchScores = async () => {
     try {
-      const { data } = await axios.get('/api/scores');
+      const { data } = await axios.get('/api/scores', { withCredentials: true });
       setScores(data);
     } catch (err) {
       console.error('Error fetching scores', err);

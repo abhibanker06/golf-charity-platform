@@ -22,7 +22,7 @@ export default function Signup() {
     try {
       const { data } = await axios.post('/api/auth/register', { 
         name, email, password 
-      });
+      }, { withCredentials: true });
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate('/subscribe'); 
     } catch (err) {

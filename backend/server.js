@@ -17,7 +17,10 @@ app.get('/health', (req, res) => {
 })
 
 app.use(cors({
-  origin: 'https://golf-charity-platform-peach.vercel.app',
+  origin: [
+    'https://golf-charity-platform-peach.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true
 }));
 app.use(express.json());
