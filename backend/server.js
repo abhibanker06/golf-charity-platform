@@ -9,7 +9,15 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+// Health route ABOVE cors
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' })
+})
+
+app.use(cors({
+  origin: 'https://golf-charity-platform-peach.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
