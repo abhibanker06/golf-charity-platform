@@ -5,12 +5,13 @@ import { LogOut, Trophy, Plus, Shield, ChevronDown, User, CreditCard, Pencil, Tr
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(null);
-  const [scores, setScores] = useState([]);
+  const [userInfo, setUserInfo] = useState(() => JSON.parse(localStorage.getItem('userInfo')) || null);
+  const [scores, setScores] = useState(() => JSON.parse(localStorage.getItem('cachedScores')) || []);
   const [newScore, setNewScore] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
+  const [isLoading, setIsLoading] = useState(!localStorage.getItem('cachedScores'));
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userInfo'));
@@ -37,8 +38,11 @@ export default function Dashboard() {
     try {
       const { data } = await axios.get('/api/scores');
       setScores(data);
+      localStorage.setItem('cachedScores', JSON.stringify(data));
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 

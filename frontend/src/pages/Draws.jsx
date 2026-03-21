@@ -5,12 +5,13 @@ import { Trophy, Calendar, Target, ChevronRight, ArrowLeft, Check, Timer, Histor
 
 export default function Draws() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(null);
-  const [scores, setScores] = useState([]);
-  const [activeDraw, setActiveDraw] = useState(null);
-  const [pastResults, setPastResults] = useState([]);
-  const [myWins, setMyWins] = useState([]);
+  const [userInfo, setUserInfo] = useState(() => JSON.parse(localStorage.getItem('userInfo')) || null);
+  const [scores, setScores] = useState(() => JSON.parse(localStorage.getItem('cachedScores')) || []);
+  const [activeDraw, setActiveDraw] = useState(() => JSON.parse(localStorage.getItem('cachedActiveDraw')) || null);
+  const [pastResults, setPastResults] = useState(() => JSON.parse(localStorage.getItem('cachedPastResults')) || []);
+  const [myWins, setMyWins] = useState(() => JSON.parse(localStorage.getItem('cachedMyWins')) || []);
   const [isSimulating, setIsSimulating] = useState(false);
+  const [isLoading, setIsLoading] = useState(!localStorage.getItem('cachedActiveDraw'));
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('userInfo'));
@@ -28,6 +29,7 @@ export default function Draws() {
     try {
       const { data } = await axios.get('/api/winners/my-wins');
       setMyWins(data);
+      localStorage.setItem('cachedMyWins', JSON.stringify(data));
     } catch (err) {
       console.error('Error fetching wins', err);
     }
@@ -57,10 +59,15 @@ export default function Draws() {
       let active = data.find(d => d.monthYear === 'March 2026');
       if (!active && data.length > 0) active = data[0];
       setActiveDraw(active);
+      localStorage.setItem('cachedActiveDraw', JSON.stringify(active));
       // Set Published draws as past results (limit to most recent 5)
-      setPastResults(data.filter(d => d.status === 'Published').slice(0, 5));
+      const past = data.filter(d => d.status === 'Published').slice(0, 5);
+      setPastResults(past);
+      localStorage.setItem('cachedPastResults', JSON.stringify(past));
     } catch (err) {
       console.error('Error fetching draws', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 

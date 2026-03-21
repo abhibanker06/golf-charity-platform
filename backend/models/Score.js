@@ -19,4 +19,6 @@ const scoreSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
+scoreSchema.index({ user: 1 });
+
 module.exports = mongoose.model('Score', scoreSchema);

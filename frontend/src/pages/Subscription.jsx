@@ -7,7 +7,7 @@ export default function Subscription() {
   const [step, setStep] = useState(1); // 1: Plan, 2: Payment
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(() => JSON.parse(localStorage.getItem('userInfo')) || null);
   const navigate = useNavigate();
 
   // Mock form state

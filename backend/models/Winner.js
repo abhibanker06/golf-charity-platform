@@ -9,4 +9,7 @@ const winnerSchema = new mongoose.Schema({
   status: { type: String, enum: ['Pending', 'Verified', 'Paid'], default: 'Pending' }
 }, { timestamps: true });
 
+winnerSchema.index({ user: 1 });
+winnerSchema.index({ draw: 1 });
+
 module.exports = mongoose.model('Winner', winnerSchema);

@@ -17,4 +17,7 @@ const drawSchema = new mongoose.Schema({
   match3Pool: { type: Number, default: 0 }
 }, { timestamps: true });
 
+drawSchema.index({ monthYear: 1 });
+drawSchema.index({ status: 1 });
+
 module.exports = mongoose.model('Draw', drawSchema);

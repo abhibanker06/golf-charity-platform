@@ -6,11 +6,12 @@ import { LogOut, ChevronDown, User, CreditCard, Heart, Shield, Mail, Calendar } 
 export default function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(() => JSON.parse(localStorage.getItem('userInfo')) || null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [charities, setCharities] = useState([]);
+  const [charities, setCharities] = useState(() => JSON.parse(localStorage.getItem('cachedCharities')) || []);
   const [loadingCharities, setLoadingCharities] = useState(false);
   const [activeTab, setActiveTab] = useState(location.state?.activeTab || 'personal');
+  const [isLoading, setIsLoading] = useState(!localStorage.getItem('userInfo'));
 
   useEffect(() => {
     if (location.state?.activeTab) {
@@ -49,6 +50,7 @@ export default function Profile() {
     try {
       const { data } = await axios.get('/api/charities');
       setCharities(data);
+      localStorage.setItem('cachedCharities', JSON.stringify(data));
     } catch (err) {
       console.error('Error fetching charities', err);
     } finally {
