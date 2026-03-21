@@ -38,7 +38,8 @@ const registerUser = async (req, res) => {
         subscriptionStatus: populatedUser.subscriptionStatus,
         plan: populatedUser.plan,
         selectedCharity: populatedUser.selectedCharity,
-        paymentMethod: populatedUser.paymentMethod
+        paymentMethod: populatedUser.paymentMethod,
+        token: token
       });
     } else {
       res.status(400).json({ message: 'Invalid user data' });
@@ -71,7 +72,8 @@ const loginUser = async (req, res) => {
         subscriptionStatus: user.subscriptionStatus,
         plan: user.plan,
         selectedCharity: user.selectedCharity,
-        paymentMethod: user.paymentMethod
+        paymentMethod: user.paymentMethod,
+        token: token
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
