@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import axios from './utils/axios';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
@@ -8,8 +8,6 @@ import Subscription from './pages/Subscription';
 import Dashboard from './pages/Dashboard';
 import Draws from './pages/Draws';
 import Footer from './components/Footer';
-
-axios.defaults.withCredentials = true;
 
 function AppContent() {
   const location = useLocation();

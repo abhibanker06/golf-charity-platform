@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axios';
 import { LogOut, ChevronDown, User, CreditCard, Heart, Shield, Mail, Calendar } from 'lucide-react';
 
 export default function Profile() {

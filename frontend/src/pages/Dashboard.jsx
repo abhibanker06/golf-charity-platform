@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axios';
 import { LogOut, Trophy, Plus, Shield, ChevronDown, User, CreditCard, Pencil, Trash2, X, Check } from 'lucide-react';
 
 export default function Dashboard() {

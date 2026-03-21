@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axios';
 import { Trophy, Calendar, Target, ChevronRight, ArrowLeft, Check, Timer, History, Award, Play } from 'lucide-react';
 
 export default function Draws() {
