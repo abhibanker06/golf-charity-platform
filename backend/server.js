@@ -9,12 +9,12 @@ connectDB();
 
 const app = express();
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' })
+})
+
 app.set('trust proxy', 1);
 
-// Health route ABOVE cors
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK' })
-})
 
 app.use(cors({
   origin: function (origin, callback) {
