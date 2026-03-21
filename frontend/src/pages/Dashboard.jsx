@@ -60,7 +60,7 @@ export default function Dashboard() {
   const handleDeleteScore = async (id) => {
     if (!window.confirm('Are you sure you want to delete this score?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/scores/${id}`);
+      await axios.delete(`/api/scores/${id}`);
       fetchScores();
     } catch (err) {
       alert('Error deleting score');
@@ -69,7 +69,7 @@ export default function Dashboard() {
 
   const handleUpdateScore = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/scores/${id}`, { points: Number(editValue) });
+      await axios.put(`/api/scores/${id}`, { points: Number(editValue) });
       setEditingId(null);
       fetchScores();
     } catch (err) {
@@ -78,7 +78,7 @@ export default function Dashboard() {
   };
 
   const logout = async () => {
-    try { await axios.post('http://localhost:5000/api/auth/logout'); } catch (err) {}
+    try { await axios.post('/api/auth/logout'); } catch (err) {}
     localStorage.removeItem('userInfo');
     navigate('/login');
   };

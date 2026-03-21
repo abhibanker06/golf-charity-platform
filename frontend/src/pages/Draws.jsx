@@ -73,7 +73,7 @@ export default function Draws() {
 
   const fetchScores = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/scores');
+      const { data } = await axios.get('/api/scores');
       setScores(data);
     } catch (err) {
       console.error('Error fetching scores', err);
